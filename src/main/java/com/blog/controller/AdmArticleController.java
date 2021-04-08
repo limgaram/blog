@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.blog.dto.Article;
+import com.blog.dto.ResultData;
 import com.blog.util.Util;
 
 @Controller
@@ -14,7 +15,7 @@ public class AdmArticleController {
 
 	@RequestMapping("/adm/article/doWrite")
 	@ResponseBody
-	public Article doWrite(String title, String body) {
+	public ResultData doWrite(String title, String body) {
 		int id = articleLastId + 1;
 		String regDate = Util.getNowDateStr();
 		String updateDate = Util.getNowDateStr();
@@ -23,6 +24,6 @@ public class AdmArticleController {
 
 		articleLastId = id;
 
-		return article;
+		return new ResultData("S-1", id + "번 글이 작성되었습니다.", "article", article);
 	}
 }
