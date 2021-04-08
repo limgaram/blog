@@ -11,19 +11,5 @@ import com.blog.util.Util;
 @Controller
 public class AdmArticleController {
 
-	private int articleLastId = 0;
-
-	@RequestMapping("/adm/article/doWrite")
-	@ResponseBody
-	public ResultData doWrite(String title, String body) {
-		int id = articleLastId + 1;
-		String regDate = Util.getNowDateStr();
-		String updateDate = Util.getNowDateStr();
-
-		Article article = new Article(id, regDate, updateDate, title, body);
-
-		articleLastId = id;
-
-		return new ResultData("S-1", id + "번 글이 작성되었습니다.", "article", article);
-	}
+	
 }
