@@ -15,7 +15,11 @@ public class ArticleService {
 	private ArticleDao articleDao;
 
 	public ResultData writeArticle(String title, String body) {
-		int id = articleDao.writeArticle(title, body);
+		// test data
+		int boardId = 3;
+		int memberId = 3;
+		articleDao.writeArticle(boardId, memberId, title, body);
+		int id = 1;
 
 		return new ResultData("S-1", "게시물이 작성되었습니다.", "id", id);
 	}
