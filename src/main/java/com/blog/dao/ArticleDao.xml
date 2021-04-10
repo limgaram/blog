@@ -40,8 +40,7 @@
 		UPDATE article
 		SET delStatus = 1,
 		delDate = NOW()
-		WHERE
-		id = #{id}
+		WHERE id = #{id}
 	</update>
 
 </mapper>
