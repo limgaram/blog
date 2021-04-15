@@ -1,5 +1,7 @@
 package com.blog.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,5 +62,13 @@ public class ArticleService {
 			return true;
 		}
 		return false;
+	}
+
+	public ResultData addArticle(Map<String, Object> param) {
+		articleDao.addArticle(param);
+		
+		int id = Util.getAsInt(param.get("id"), 0);
+		
+		return new ResultData("S-1", "성공하였습니다.", "id", id);
 	}
 }

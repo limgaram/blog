@@ -26,7 +26,7 @@
 		title = #{title},
 		body = #{body}
 	</insert>
-
+	
 	<update id="modifyArticle">
 		UPDATE article
 		SET updateDate = NOW(),
@@ -40,7 +40,20 @@
 		UPDATE article
 		SET delStatus = 1,
 		delDate = NOW()
-		WHERE id = #{id}
+		WHERE
+		id = #{id}
 	</update>
+	
+	<!-- adm -->
+	<insert id="addArticle" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO article
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		boardId =
+		#{boardId},
+		memberId = #{memberId},
+		title = #{title},
+		`body` = #{body}
+	</insert>
 
 </mapper>

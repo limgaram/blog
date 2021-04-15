@@ -54,7 +54,7 @@
 							</a>
 							<div>
 								<h1>
-									<a href="/">
+									<a href="#">
 										<span>
 											<i class="far fa-newspaper"></i>
 										</span>

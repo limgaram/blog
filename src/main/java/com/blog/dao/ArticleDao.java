@@ -1,5 +1,7 @@
 package com.blog.dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,4 +19,6 @@ public interface ArticleDao {
 	boolean modifyArticle(@Param("id") int id, @Param("title") String title, @Param("body") String body);
 
 	int getLastInsertId();
+
+	void addArticle(Map<String, Object> param);
 }
