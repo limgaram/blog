@@ -8,11 +8,9 @@ import com.blog.service.ArticleService;
 import com.blog.service.GenFileService;
 
 @Controller
-public class AdmArticleController {
+public class AdmArticleController extends BaseController {
 	@Autowired
 	private ArticleService articleService;
-	@Autowired
-	private GenFileService genFileService;
 
 	@RequestMapping("/adm/article/list")
 	public String showList() {
