@@ -16,5 +16,10 @@ public class AdmArticleController extends BaseController {
 	public String showList() {
 		return "adm/article/list";
 	}
+	
+	@RequestMapping("/adm/article/doAdd")
+	public String doAdd() {
+		return "adm/article/doAdd";
+	}
 
 }

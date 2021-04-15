@@ -9,6 +9,6 @@ public class AdmHomeController {
 	@RequestMapping("/adm/home/main")
 	@ResponseBody
 	public String showMain() {
-		return "hi";
+		return "/adm/home/main";
 	}
 }
