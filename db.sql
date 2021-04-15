@@ -83,8 +83,8 @@ CREATE TABLE board (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '번호',
     regDate DATETIME NOT NULL COMMENT '작성날짜',
     updateDate DATETIME NOT NULL COMMENT '수정날짜',
-    `name` CHAR(20) NOT NULL UNIQUE COMMENT '이름',
     `code` CHAR(20) NOT NULL UNIQUE COMMENT '코드',
+    `name` CHAR(20) NOT NULL UNIQUE COMMENT '이름',
     blindStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '블라인드여부',
     blindDate DATETIME COMMENT '블라인드날짜',
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부',
@@ -100,14 +100,14 @@ CREATE TABLE board (
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
-`name` = '공지사항',
-`code` = 'notice';
+`code` = 'notice',
+`name` = 'NOTICE';
 
 ## 자유 게시판 생성
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
-`name` = '자유',
-`code` = 'free';
+`code` = 'free',
+`name` = 'FREE';
 
 
