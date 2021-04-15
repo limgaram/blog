@@ -1,16 +1,15 @@
 package com.blog.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.blog.dto.Article;
+import com.blog.dto.Board;
 import com.blog.dto.ResultData;
 import com.blog.service.ArticleService;
+import com.blog.service.BoardService;
 import com.blog.util.Util;
 
 @Controller
@@ -18,9 +17,17 @@ public class MpaUsrArticleController {
 
 	@Autowired
 	private ArticleService articleService;
+	@Autowired
+	private BoardService boardService;
 
 	@RequestMapping("/mpaUsr/article/list")
 	public String showList(int boardId) {
+		Board board = boardService.getBoardById(boardId);
+
+		if (board == null) {
+			return "존재하지 않는 게시판입니다.";
+		}
+
 		return "mpaUsr/article/list";
 	}
 
