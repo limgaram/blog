@@ -19,6 +19,11 @@ public class MpaUsrArticleController {
 	@Autowired
 	private ArticleService articleService;
 
+	@RequestMapping("/mpaUsr/article/list")
+	public String showList(int boardId) {
+		return "mpaUsr/article/list";
+	}
+
 	@RequestMapping("/mpaUsr/article/doWrite")
 	@ResponseBody
 	public ResultData doWrite(String title, String body) {
@@ -74,8 +79,8 @@ public class MpaUsrArticleController {
 		}
 
 		Article article = articleService.getArticleById(id);
-		
-		if(article == null) {
+
+		if (article == null) {
 			return new ResultData("F-4", "존재하지 않는 게시물 번호입니다.");
 		}
 		return articleService.modifyArticleById(id, title, body);
