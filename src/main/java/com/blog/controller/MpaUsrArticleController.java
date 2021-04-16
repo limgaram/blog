@@ -15,7 +15,7 @@ import com.blog.service.BoardService;
 import com.blog.util.Util;
 
 @Controller
-public class MpaUsrArticleController {
+public class MpaUsrArticleController extends BaseController {
 
 	@Autowired
 	private ArticleService articleService;
@@ -27,8 +27,7 @@ public class MpaUsrArticleController {
 		Board board = boardService.getBoardById(boardId);
 
 		if (board == null) {
-			req.setAttribute("msg", boardId + "번 게시판이 존재하지 않습니다.");
-			return "common/redirect";
+			return msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
 		}
 
 		req.setAttribute("board", board);
