@@ -8,5 +8,15 @@
         alert(alertMsg);
     }
 
-    history.back();
+    const historyBack = '${historyBack}' == 'true';
+
+    if (historyBack) {
+        history.Back();
+    }
+
+    const replaceUrl = '${replaceUrl}'.trim();
+
+    if (redirectUrl) {
+        location.replace(replaceUrl);
+    }
 </script>

@@ -39,7 +39,7 @@ public class ArticleService {
 
 		articleDao.deleteArticleById(id);
 
-		return new ResultData("S-1", id + "번 게시물이 삭제되었습니다.", "id", id);
+		return new ResultData("S-1", id + "번 게시물이 삭제되었습니다.", "id", id, "boardId", article.getBoardId());
 
 	}
 
@@ -66,9 +66,9 @@ public class ArticleService {
 
 	public ResultData addArticle(Map<String, Object> param) {
 		articleDao.addArticle(param);
-		
+
 		int id = Util.getAsInt(param.get("id"), 0);
-		
+
 		return new ResultData("S-1", "성공하였습니다.", "id", id);
 	}
 }
