@@ -71,4 +71,8 @@ public class ArticleService {
 
 		return new ResultData("S-1", "성공하였습니다.", "id", id);
 	}
+
+	public int getArticlesTotalCount(int boardId) {
+		return articleDao.getArticlesTotalCount(boardId);
+	}
 }

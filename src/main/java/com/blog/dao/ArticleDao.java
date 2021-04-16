@@ -21,4 +21,6 @@ public interface ArticleDao {
 	int getLastInsertId();
 
 	void addArticle(Map<String, Object> param);
+
+	int getArticlesTotalCount(@Param("boardId") int boardId);
 }

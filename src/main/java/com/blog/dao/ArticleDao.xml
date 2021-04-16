@@ -12,6 +12,13 @@
 		AND A.delStatus = 0
 	</select>
 
+	<select id="getArticlesTotalCount" resultType="int">
+		SELECT COUNT(*) AS cnt
+		FROM article AS A
+		WHERE A.boardId = #{boardId}
+		ADN A.delStatus = 0
+	</select>
+
 	<select id="getLastInsertId" resultType="int">
 		SELECT LAST_INSERT_ID()
 	</select>
@@ -26,7 +33,7 @@
 		title = #{title},
 		body = #{body}
 	</insert>
-	
+
 	<update id="modifyArticle">
 		UPDATE article
 		SET updateDate = NOW(),
@@ -43,7 +50,7 @@
 		WHERE
 		id = #{id}
 	</update>
-	
+
 	<!-- adm -->
 	<insert id="addArticle" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO article

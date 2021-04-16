@@ -32,6 +32,10 @@ public class MpaUsrArticleController extends BaseController {
 
 		req.setAttribute("board", board);
 
+		int totalItemsCount = articleService.getArticlesTotalCount(boardId);
+
+		req.setAttribute("totalItemsCount", totalItemsCount);
+
 		return "mpaUsr/article/list";
 	}
 
