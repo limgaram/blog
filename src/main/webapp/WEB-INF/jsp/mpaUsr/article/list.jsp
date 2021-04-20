@@ -7,7 +7,8 @@
 
 <div class="section section-article-list">
 	<div class="contatiner mx-auto">
-		<span>TOTAL ITEMS : </span> <span>${totalItemsCount}</span>
+		<span>TOTAL ITEMS : </span> 
+		<span>${totalItemsCount}</span>
 	</div>
 </div>
 

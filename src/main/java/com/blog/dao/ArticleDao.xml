@@ -16,7 +16,7 @@
 		SELECT COUNT(*) AS cnt
 		FROM article AS A
 		WHERE A.boardId = #{boardId}
-		ADN A.delStatus = 0
+		AND A.delStatus = 0
 	</select>
 
 	<select id="getLastInsertId" resultType="int">
