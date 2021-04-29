@@ -47,9 +47,10 @@ public class MpaUsrArticleController extends BaseController {
 		
 		List<Article> articles = articleService.getForPrintArticles(boardId, itemsCountInAPage, page);
 			
-		System.out.println("articles:" + articles);
+		System.out.println("articles : " + articles);
 		
 		req.setAttribute("articles", articles);
+		
 		return "mpaUsr/article/list";
 	}
 
