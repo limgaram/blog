@@ -12,6 +12,14 @@
 		AND A.delStatus = 0
 	</select>
 
+	<select id="getForPrintArticles" resultType="Article">
+		SELECT *
+		FROM article AS A
+		WHERE A.boardId = #{boardId}
+		ORDER BY A.id DESC
+		LIMIT #{limitFrom}, #{limitTake}
+	</select>
+
 	<select id="getArticlesTotalCount" resultType="int">
 		SELECT COUNT(*) AS cnt
 		FROM article AS A

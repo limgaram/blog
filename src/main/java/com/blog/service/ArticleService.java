@@ -1,5 +1,6 @@
 package com.blog.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +75,12 @@ public class ArticleService {
 
 	public int getArticlesTotalCount(int boardId) {
 		return articleDao.getArticlesTotalCount(boardId);
+	}
+
+	public List<Article> getForPrintArticles(int boardId, int itemsCountInAPage, int page) {
+		int limitFrom = (page - 1) * itemsCountInAPage;
+		int limitTake = itemsCountInAPage;
+		
+		return articleDao.getForPrintArticles(boardId, limitFrom, limitTake);
 	}
 }

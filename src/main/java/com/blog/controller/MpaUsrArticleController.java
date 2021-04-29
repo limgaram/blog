@@ -1,10 +1,13 @@
 package com.blog.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.blog.dto.Article;
@@ -23,7 +26,7 @@ public class MpaUsrArticleController extends BaseController {
 	private BoardService boardService;
 
 	@RequestMapping("/mpaUsr/article/list")
-	public String showList(HttpServletRequest req, int boardId) {
+	public String showList(HttpServletRequest req, int boardId, @RequestParam(defaultValue = "1") int page) {
 		Board board = boardService.getBoardById(boardId);
 
 		if (board == null) {
@@ -35,7 +38,18 @@ public class MpaUsrArticleController extends BaseController {
 		int totalItemsCount = articleService.getArticlesTotalCount(boardId);
 
 		req.setAttribute("totalItemsCount", totalItemsCount);
-
+		
+		int itemsCountInAPage = 20;
+		int totalPage = (int)Math.ceil(totalItemsCount/ (double)itemsCountInAPage);
+		
+		req.setAttribute("page", page);
+		req.setAttribute("totalPage", totalPage);
+		
+		List<Article> articles = articleService.getForPrintArticles(boardId, itemsCountInAPage, page);
+			
+		System.out.println("articles:" + articles);
+		
+		req.setAttribute("articles", articles);
 		return "mpaUsr/article/list";
 	}
 

@@ -1,5 +1,6 @@
 package com.blog.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -23,4 +24,7 @@ public interface ArticleDao {
 	void addArticle(Map<String, Object> param);
 
 	int getArticlesTotalCount(@Param("boardId") int boardId);
+
+	List<Article> getForPrintArticles(@Param("boardId") int boardId, @Param("limitFrom") int limitFrom,
+			@Param("limitTake") int limitTake);
 }
