@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.blog.dto.Member;
 import com.blog.service.Memberservice;
 import com.blog.util.Util;
 
@@ -28,9 +29,12 @@ public class AdmMemberController extends BaseController{
 			return Util.msgAndBack("loginId를 입력해주세요.");
 		}
 		
+		Member exstingMember = memberService.getMemberByLoginId((String) param.get("loginId"));
+		
+		
 		String msg = String.format(null, null);
 		String redirectUrl = Util.ifEmpty(null, null);
 		
-		return Util.msgAndBack(msg, redirectUrl);
+	
 	}
 }
