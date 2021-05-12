@@ -21,4 +21,5 @@ public class Member extends EntityDto{
 	private String cellphoneNo;
 	private String email;
 	private String extra__thumbImg;
+
 }

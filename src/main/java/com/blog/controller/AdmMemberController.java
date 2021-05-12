@@ -1,6 +1,9 @@
 package com.blog.controller;
 
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,8 +62,38 @@ public class AdmMemberController extends BaseController {
 
 		String msg = String.format("%s님 환영합니다.", param.get("nickname"));
 		String redirectUrl = Util.ifEmpty((String) param.get("redirectUrl"), "../member/login");
-		
+
 		return Util.msgAndReplace(msg, redirectUrl);
 
+	}
+
+	@RequestMapping("/adm/member/list")
+	public String showList(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId,
+			String searchKeywordType, String searchKeyword, @RequestParam(defaultValue = "1") int page,
+			@RequestParam Map<String, Object> param) {
+		if (searchKeywordType != null) {
+			searchKeywordType = searchKeywordType.trim();
+		}
+
+		if (searchKeywordType == null || searchKeywordType.length() == 0) {
+			searchKeywordType = "titleAndBody";
+		}
+
+		if (searchKeyword != null && searchKeyword.length() == 0) {
+			searchKeywordType = null;
+		}
+
+		if (searchKeyword == null) {
+			searchKeywordType = null;
+		}
+
+		int itemsInAPage = 20;
+
+		List<Member> members = memberService.getForPrintMembers(searchKeywordType, searchKeyword, page, itemsInAPage,
+				param);
+
+		req.setAttribute("members", members);
+
+		return "/adm/member/list";
 	}
 }

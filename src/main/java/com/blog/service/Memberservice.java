@@ -1,5 +1,6 @@
 package com.blog.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,19 @@ public class Memberservice {
 
 		return new ResultData("S-1", String.format("%s님 환영합니다.", param.get("nickname")));
 
+	}
+
+	public List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int page, int itemsInAPage,
+			Map<String, Object> param) {
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+
+		param.put("searchKeywordType", searchKeywordType);
+		param.put("searchKeyword", searchKeyword);
+		param.put("limitStart", limitStart);
+		param.put("limitTake", limitTake);
+
+		return memberDao.getForPrintMembers(param);
 	}
 
 }

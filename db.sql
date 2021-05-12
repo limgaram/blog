@@ -148,3 +148,13 @@ loginPw = "admin2",
 nickname = "admin2",
 cellphoneNo = "01022222222",
 email = "garam2@gmail.com";
+
+#admin-member에 권한레벨 필드 추가
+ALTER TABLE `member`
+ADD COLUMN `authlevel` SMALLINT(2) UNSIGNED
+DEFAULT 3 NOT NULL COMMENT '(1=관리자,3=일반)' AFTER `loginPw`;
+
+#1번 회원(admin1)을 관리자로 지정
+UPDATE `member`
+SET authLevel = 7
+WHERE id = 1;
