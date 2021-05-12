@@ -110,4 +110,41 @@ updateDate = NOW(),
 `code` = 'free',
 `name` = 'FREE';
 
+SELECT * FROM article;
 
+#admin-Member(회원) 테이블 생성
+CREATE TABLE `member` (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    loginId CHAR(30) NOT NULL,
+    loginPw VARCHAR(100) NOT NULL,
+    `name` CHAR(30) NOT NULL,
+    `nickname` CHAR(30) NOT NULL,
+    `email` CHAR(100) NOT NULL,
+    `cellphoneNo` CHAR(20) NOT NULL
+);
+
+#loginId 로 겁색했을 때
+ALTER TABLE `member` ADD UNIQUE (`loginId`);
+
+#admin-member, 테스트 데이터 생성
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = "admin1",
+loginPw = "admin1",
+`name` = "admin1",
+nickname = "admin1",
+cellphoneNo = "01011111111",
+email = "garam@gmail.com";
+
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = "admin2",
+loginPw = "admin2",
+`name` = "admin2",
+nickname = "admin2",
+cellphoneNo = "01022222222",
+email = "garam2@gmail.com";

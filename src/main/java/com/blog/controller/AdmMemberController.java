@@ -13,28 +13,54 @@ import com.blog.service.Memberservice;
 import com.blog.util.Util;
 
 @Controller
-public class AdmMemberController extends BaseController{
+public class AdmMemberController extends BaseController {
 	@Autowired
 	private Memberservice memberService;
-	
+
 	@RequestMapping("adm/member/join")
 	public String showJoin() {
 		return "adm/member/join";
 	}
-	
+
 	@RequestMapping("adm/member/doJoin")
 	@ResponseBody
 	public String doJoin(@RequestParam Map<String, Object> param) {
-		if(param.get("loginId") == null) {
-			return Util.msgAndBack("loginId를 입력해주세요.");
+		if (param.get("loginId") == null) {
+			return Util.msgAndBack("loginId(을)를 입력해주세요.");
 		}
+
+		Member existingMember = memberService.getMemberByLoginId((String) param.get("loginId"));
+
+		if (existingMember != null) {
+			return Util.msgAndBack("이미 사용중인 로그인아이디입니다.");
+		}
+
+		if (param.get("loginPw") == null) {
+			return Util.msgAndBack("loginPw(을)를 입력해주세요. ");
+		}
+
+		if (param.get("name") == null) {
+			return Util.msgAndBack("name(을)를 입력해주세요. ");
+		}
+
+		if (param.get("nickname") == null) {
+			return Util.msgAndBack("nickname(을)를 입력해주세요. ");
+		}
+
+		if (param.get("email") == null) {
+			return Util.msgAndBack("email(을)를 입력해주세요. ");
+		}
+
+		if (param.get("cellphoneNo") == null) {
+			return Util.msgAndBack("cellphoneNo(을)를 입력해주세요. ");
+		}
+
+		memberService.join(param);
+
+		String msg = String.format("%s님 환영합니다.", param.get("nickname"));
+		String redirectUrl = Util.ifEmpty((String) param.get("redirectUrl"), "../member/login");
 		
-		Member exstingMember = memberService.getMemberByLoginId((String) param.get("loginId"));
-		
-		
-		String msg = String.format(null, null);
-		String redirectUrl = Util.ifEmpty(null, null);
-		
-	
+		return Util.msgAndReplace(msg, redirectUrl);
+
 	}
 }
