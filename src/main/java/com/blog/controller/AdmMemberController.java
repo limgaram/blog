@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.blog.dto.Member;
+import com.blog.dto.ResultData;
 import com.blog.service.Memberservice;
 import com.blog.util.Util;
 
@@ -135,6 +136,35 @@ public class AdmMemberController extends BaseController {
 		redirectUrl = Util.ifEmpty(redirectUrl, "../home/main");
 
 		return Util.msgAndReplace(msg, redirectUrl);
+	}
+
+	@RequestMapping("adm/member/modify")
+	public String showModify(Integer id, HttpServletRequest req) {
+		if (id == null) {
+			return msgAndBack(req, "id(을)를 입력해주세요.");
+		}
+
+		Member member = memberService.getForPrintMember(id);
+
+		req.setAttribute("member", member);
+
+		if (member == null) {
+			return msgAndBack(req, "존재하지 않는 회원번호입니다.");
+		}
+
+		return "adm/member/modify";
+	}
+
+	@RequestMapping("adm/member/doModify")
+	public String doModify(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+		param.put("id", loginedMemberId);
+
+		ResultData modifyMemberRd = memberService.modifyMember(param);
+		String redirectUrl = "/adm/member/list";
+
+		return Util.msgAndReplace(modifyMemberRd.getMsg(), redirectUrl);
+
 	}
 
 }

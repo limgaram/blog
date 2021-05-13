@@ -16,4 +16,6 @@ public interface MemberDao {
 	void join(Map<String, Object> param);
 
 	List<Member> getForPrintMembers(Map<String, Object> param);
+
+	void modifyMember(Map<String, Object> param);
 }

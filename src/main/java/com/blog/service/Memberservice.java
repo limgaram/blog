@@ -70,4 +70,17 @@ public class Memberservice {
 		return actor.getAuthLevel() == 1;
 	}
 
+	public Member getForPrintMember(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ResultData modifyMember(Map<String, Object> param) {
+		memberDao.modifyMember(param);
+		
+		return new ResultData("S-1", "회원정보가 수정되었습니다.");
+	}
+
+	
+
 }
