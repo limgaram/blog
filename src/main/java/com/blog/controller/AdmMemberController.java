@@ -166,5 +166,14 @@ public class AdmMemberController extends BaseController {
 		return Util.msgAndReplace(modifyMemberRd.getMsg(), redirectUrl);
 
 	}
+	
+	@RequestMapping("/adm/member/doLogout")
+	@ResponseBody
+	public String doLogout(HttpSession session) {
+		session.removeAttribute("loginedMemberId");
+		
+		return Util.msgAndReplace("로그아웃 되었습니다.", "../member/login");
+	}
+	
 
 }
