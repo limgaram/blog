@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -96,4 +97,44 @@ public class AdmMemberController extends BaseController {
 
 		return "/adm/member/list";
 	}
+
+	@RequestMapping("/adm/member/login")
+	public String showLogin() {
+		return "adm/member/login";
+	}
+
+	@RequestMapping("/adm/member/doLogin")
+	@ResponseBody
+	public String doLogin(String loginId, String loginPw, String redirectUrl, HttpSession session) {
+		if (loginId == null) {
+			return Util.msgAndBack("loginId(을)를 입력해주세요.");
+		}
+
+		Member existingMember = memberService.getMemberByLoginId(loginId);
+
+		if (existingMember == null) {
+			return Util.msgAndBack("존재하지 않는 로그인아이디입니다.");
+		}
+
+		if (loginPw == null) {
+			return Util.msgAndBack("loginPw(을)를 입력해주세요.");
+		}
+
+		if (existingMember.getLoginId().equals(loginPw) == false) {
+			return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
+		}
+
+		if (memberService.isAdmin(existingMember) == false) {
+			return Util.msgAndBack("관리자만 접근할 수 있는 페이지입니다.");
+		}
+
+		session.setAttribute("loginedMemberId", existingMember.getId());
+
+		String msg = String.format("%s님 환영합니다.", existingMember.getNickname());
+
+		redirectUrl = Util.ifEmpty(redirectUrl, "../home/main");
+
+		return Util.msgAndReplace(msg, redirectUrl);
+	}
+
 }

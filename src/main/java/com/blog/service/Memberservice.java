@@ -16,6 +16,30 @@ public class Memberservice {
 	@Autowired
 	private MemberDao memberDao;
 
+	// static st
+	public static String getAuthLevelName(Member member) {
+		switch (member.getAuthLevel()) {
+		case 1:
+			return "관리자";
+		case 3:
+			return "일반";
+		default:
+			return "유형정보없음";
+		}
+	}
+
+	public static String getAuthLevelNameColor(Member member) {
+		switch (member.getAuthLevel()) {
+		case 1:
+			return "red";
+		case 3:
+			return "gray";
+		default:
+			return "";
+		}
+	}
+	// static end
+
 	public Member getMemberByLoginId(String loginId) {
 		return memberDao.getMemberLoginId(loginId);
 	}
@@ -40,6 +64,10 @@ public class Memberservice {
 		param.put("limitTake", limitTake);
 
 		return memberDao.getForPrintMembers(param);
+	}
+
+	public boolean isAdmin(Member actor) {
+		return actor.getAuthLevel() == 1;
 	}
 
 }

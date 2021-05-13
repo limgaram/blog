@@ -18,6 +18,7 @@ public class Member extends EntityDto{
 	private String loginPw;
 	private int authLevel;
 	private String name;
+	private String nickname;
 	private String cellphoneNo;
 	private String email;
 	private String extra__thumbImg;
