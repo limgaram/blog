@@ -29,20 +29,25 @@ public class MpaUsrArticleController extends BaseController {
 	private BoardService boardService;
 
 	@RequestMapping("/mpaUsr/article/list")
-	public String showList(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId, String searchKeyword,
+	public String showList(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId,String searchKeywordType, String searchKeyword,
 			@RequestParam(defaultValue = "1") int page) {
 		Board board = articleService.getBoardById(boardId);
 
-		log.debug("searchKeyword : " + searchKeyword);
-
+		if ( Util.isEmpty(searchKeywordType) ) {
+			searchKeywordType = "titleAndBody";
+		}
+		
 		if (board == null) {
 			return msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
 		}
 
 		req.setAttribute("board", board);
 
-		int totalItemsCount = articleService.getArticlesTotalCount(boardId);
+		int totalItemsCount = articleService.getArticlesTotalCount(boardId, searchKeywordType, searchKeyword);
 
+		if (searchKeyword == null || searchKeyword.trim().length() == 0) {
+
+		}
 		req.setAttribute("totalItemsCount", totalItemsCount);
 
 		int itemsCountInAPage = 20;
@@ -51,9 +56,8 @@ public class MpaUsrArticleController extends BaseController {
 		req.setAttribute("page", page);
 		req.setAttribute("totalPage", totalPage);
 
-		List<Article> articles = articleService.getForPrintArticles(boardId, itemsCountInAPage, page);
-
-
+		List<Article> articles = articleService.getForPrintArticles(boardId, searchKeywordType, searchKeyword, itemsCountInAPage, page);
+		
 		req.setAttribute("articles", articles);
 
 		return "mpaUsr/article/list";

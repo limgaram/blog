@@ -19,7 +19,6 @@ public class ArticleService {
 	@Autowired
 	private ArticleDao articleDao;
 
-
 	public ResultData writeArticle(String title, String body) {
 		// test data
 		int boardId = 3;
@@ -76,32 +75,6 @@ public class ArticleService {
 		return new ResultData("S-1", "성공하였습니다.", "id", id);
 	}
 
-	public int getArticlesTotalCount(int boardId) {
-		return articleDao.getArticlesTotalCount(boardId);
-	}
-
-	public int getArticlesTotalCount(int boardId, String searchKeywordType, String searchkeyword) {
-		return articleDao.getArticlesTotalCount(boardId, searchKeywordType, searchkeyword);
-	}
-
-	public List<Article> getForPrintArticles(int boardId, int itemsCountInAPage, int page) {
-		int limitFrom = (page - 1) * itemsCountInAPage;
-		int limitTake = itemsCountInAPage;
-
-		return articleDao.getForPrintArticles(boardId, limitFrom, limitTake);
-	}
-
-	public List<Article> getForPrintArticles(int boardId, String searchKeywordType, String searchKeyword, int page,
-			int itemsInAPage) {
-		int limitFrom = (page - 1) * itemsInAPage;
-		int limitTake = itemsInAPage;
-
-		List<Article> articles = articleDao.getForPrintArticles(boardId, searchKeywordType, searchKeyword, limitFrom,
-				limitTake);
-
-		return articles;
-	}
-
 	public Article getForPrintArticle(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
@@ -125,6 +98,26 @@ public class ArticleService {
 	public Board getBoardById(int boardId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public int getArticlesTotalCount(int boardId, String searchKeywordType, String searchKeyword) {
+		if (searchKeyword != null && searchKeyword.length() == 0) {
+			searchKeyword = null;
+		}
+
+		return articleDao.getArticlesTotalCount(boardId, searchKeywordType, searchKeyword);
+	}
+
+	public List<Article> getForPrintArticles(int boardId, String searchKeywordType, String searchKeyword,
+			int itemsCountInAPage, int page) {
+		if (searchKeyword != null && searchKeyword.length() == 0) {
+			searchKeyword = null;
+		}
+
+		int limitFrom = (page - 1) * itemsCountInAPage;
+		int limitTake = itemsCountInAPage;
+
+		return articleDao.getForPrintArticles(boardId, searchKeywordType, searchKeyword, limitFrom, limitTake);
 	}
 
 }
