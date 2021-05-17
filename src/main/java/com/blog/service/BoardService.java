@@ -15,4 +15,5 @@ public class BoardService {
 	public Board getBoardById(int id) {
 		return boardDao.getBoardById(id);
 	}
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.blog.dao.ArticleDao;
 import com.blog.dto.Article;
+import com.blog.dto.Board;
 import com.blog.dto.ResultData;
 import com.blog.util.Util;
 
@@ -16,6 +17,8 @@ public class ArticleService {
 
 	@Autowired
 	private ArticleDao articleDao;
+//	@Autowired
+//	private MemberService memberService;
 
 	public ResultData writeArticle(String title, String body) {
 		// test data
@@ -77,10 +80,26 @@ public class ArticleService {
 		return articleDao.getArticlesTotalCount(boardId);
 	}
 
+	public int getArticlesTotalCount(int boardId, String searchKeywordType, String searchkeyword) {
+		return articleDao.getArticlesTotalCount(boardId, searchKeywordType, searchkeyword);
+	}
+
 	public List<Article> getForPrintArticles(int boardId, int itemsCountInAPage, int page) {
 		int limitFrom = (page - 1) * itemsCountInAPage;
 		int limitTake = itemsCountInAPage;
-		
+
 		return articleDao.getForPrintArticles(boardId, limitFrom, limitTake);
 	}
+
+	public List<Article> getForPrintArticles(int boardId, String searchKeywordType, String searchKeyword, int page,
+			int itemsInAPage) {
+		int limitFrom = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+
+		List<Article> articles = articleDao.getForPrintArticles(boardId, searchKeywordType, searchKeyword, limitFrom,
+				limitTake);
+
+		return articles;
+	}
+
 }
