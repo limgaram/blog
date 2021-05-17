@@ -1,5 +1,6 @@
 package com.blog.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,13 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.blog.dto.Article;
 import com.blog.dto.Board;
+import com.blog.dto.Member;
 import com.blog.dto.ResultData;
 import com.blog.service.ArticleService;
 import com.blog.service.BoardService;
+import com.blog.util.Util;
 
 @Controller
 public class AdmArticleController extends BaseController {
@@ -114,6 +118,57 @@ public class AdmArticleController extends BaseController {
 		return msgAndReplace(req, String.format("%d번 게시물이 작성되었습니다.", newArticleId),
 				"../article/detail?id=" + newArticleId);
 
+	}
+	
+
+	@RequestMapping("/adm/article/modify")
+	public String showModify(Integer id, HttpServletRequest req) {
+		if (id == null) {
+			return msgAndBack(req, "id를 입력해주세요.");
+		}
+
+		Article article = articleService.getForPrintArticle(id);
+
+		req.setAttribute("article", article);
+
+		if (article == null) {
+			return msgAndBack(req, "존재하지 않는 게시물번호 입니다.");
+		}
+
+		return "adm/article/modify";
+	}
+
+	@RequestMapping("/adm/article/doModify")
+	@ResponseBody
+	public ResultData doModify(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
+
+		int id = Util.getAsInt(param.get("id"), 0);
+
+		if (id == 0) {
+			return new ResultData("F-1", "id를 입력해주세요.");
+		}
+
+		if (Util.isEmpty(param.get("title"))) {
+			return new ResultData("F-1", "title을 입력해주세요.");
+		}
+
+		if (Util.isEmpty(param.get("body"))) {
+			return new ResultData("F-1", "body를 입력해주세요.");
+		}
+
+		Article article = articleService.getArticle(id);
+
+		if (article == null) {
+			return new ResultData("F-1", "해당 게시물은 존재하지 않습니다.");
+		}
+
+		ResultData actorCanModifyRd = articleService.getActorCanModifyRd(article, loginedMember);
+		if (actorCanModifyRd.isFail()) {
+			return actorCanModifyRd;
+		}
+
+		return articleService.modifyArticle(param);
 	}
 
 }

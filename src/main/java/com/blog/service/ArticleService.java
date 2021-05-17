@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.blog.dao.ArticleDao;
 import com.blog.dto.Article;
 import com.blog.dto.Board;
+import com.blog.dto.Member;
 import com.blog.dto.ResultData;
 import com.blog.util.Util;
 
@@ -17,8 +18,7 @@ public class ArticleService {
 
 	@Autowired
 	private ArticleDao articleDao;
-//	@Autowired
-//	private MemberService memberService;
+
 
 	public ResultData writeArticle(String title, String body) {
 		// test data
@@ -100,6 +100,31 @@ public class ArticleService {
 				limitTake);
 
 		return articles;
+	}
+
+	public Article getForPrintArticle(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Article getArticle(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ResultData getActorCanModifyRd(Article article, Member loginedMember) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ResultData modifyArticle(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Board getBoardById(int boardId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

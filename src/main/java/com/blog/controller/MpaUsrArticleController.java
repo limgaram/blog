@@ -17,7 +17,10 @@ import com.blog.service.ArticleService;
 import com.blog.service.BoardService;
 import com.blog.util.Util;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class MpaUsrArticleController extends BaseController {
 
 	@Autowired
@@ -26,8 +29,11 @@ public class MpaUsrArticleController extends BaseController {
 	private BoardService boardService;
 
 	@RequestMapping("/mpaUsr/article/list")
-	public String showList(HttpServletRequest req, int boardId, @RequestParam(defaultValue = "1") int page) {
-		Board board = boardService.getBoardById(boardId);
+	public String showList(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId, String searchKeyword,
+			@RequestParam(defaultValue = "1") int page) {
+		Board board = articleService.getBoardById(boardId);
+
+		log.debug("searchKeyword : " + searchKeyword);
 
 		if (board == null) {
 			return msgAndBack(req, boardId + "번 게시판이 존재하지 않습니다.");
@@ -38,19 +44,18 @@ public class MpaUsrArticleController extends BaseController {
 		int totalItemsCount = articleService.getArticlesTotalCount(boardId);
 
 		req.setAttribute("totalItemsCount", totalItemsCount);
-		
+
 		int itemsCountInAPage = 20;
-		int totalPage = (int)Math.ceil(totalItemsCount/ (double)itemsCountInAPage);
-		
+		int totalPage = (int) Math.ceil(totalItemsCount / (double) itemsCountInAPage);
+
 		req.setAttribute("page", page);
 		req.setAttribute("totalPage", totalPage);
-		
+
 		List<Article> articles = articleService.getForPrintArticles(boardId, itemsCountInAPage, page);
-			
-		System.out.println("articles : " + articles);
-		
+
+
 		req.setAttribute("articles", articles);
-		
+
 		return "mpaUsr/article/list";
 	}
 
