@@ -1,23 +1,20 @@
 package com.blog.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.blog.dto.Article;
 import com.blog.dto.Board;
 import com.blog.dto.ResultData;
 import com.blog.service.ArticleService;
 import com.blog.service.BoardService;
 import com.blog.util.Util;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -62,6 +59,19 @@ public class MpaUsrArticleController extends BaseController {
 		req.setAttribute("articles", articles);
 
 		return "mpaUsr/article/list";
+	}
+
+	@RequestMapping("/mapUsr/article/write")
+	public String showWrite(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId){
+		Board board = boardService.getBoardById(boardId);
+
+		if(board == null){
+			return msgAndBack(req, boardId + "번 게시물이 존재하지 않습니다.");
+		}
+
+		req.setAttribute("board", board);
+
+		return "mpaUsr/article/write";
 	}
 
 	@RequestMapping("/mpaUsr/article/doWrite")
