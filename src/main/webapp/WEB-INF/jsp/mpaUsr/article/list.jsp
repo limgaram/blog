@@ -8,15 +8,18 @@
 <div class="section section-article-list">
 	<div class="contatiner mx-auto">
 		<div class="total-items">
-			<span>TOTAL ITEMS : </span> <span>${totalItemsCount}</span>
+			<span>TOTAL ITEMS : </span>
+			<span>${totalItemsCount}</span>
 		</div>
 
 		<div class="total-pages">
-			<span>TOTAL PAGES :</span> <span>${totalPage}</span>
+			<span>TOTAL PAGES :</span>
+			<span>${totalPage}</span>
 		</div>
 
 		<div class="page">
-			<span>CURRENT PAGE :</span> <span>${page}</span>
+			<span>CURRENT PAGE :</span>
+			<span>${page}</span>
 		</div>
 
 		<hr />
@@ -27,11 +30,13 @@
 				<input type="hidden" name="boardId" value="${board.id}" />
 
 				<div class="form-control">
-					<label class="label"> <span class="label-text">옵션</span>
-					</label> <select class="select select-bordered" name="searchKeywordType">
+					<label class="label">
+						<span class="label-text">옵션</span>
+					</label>
+					<select class="select select-bordered" name="searchKeywordType">
 						<option value="titleAndBody">제목+내용</option>
 						<option value="title">제목</option>
-						<option value="Body">내용</option>
+						<option value="body">내용</option>
 					</select>
 
 					<script>
@@ -43,13 +48,17 @@
 				</div>
 
 				<div class="form-control">
-					<label class="label"> <span class="label-text">제목</span>
-					</label> <input value="${param.searchKeyword}" class="input input-bordered" name="searchKeyword" type="text" placeholder="검색어를 입력해주세요." maxlength="10" />
+					<label class="label">
+						<span class="label-text">제목</span>
+					</label>
+					<input value="${param.searchKeyword}" class="input input-bordered" name="searchKeyword" type="text" placeholder="검색어를 입력해주세요." maxlength="10" />
 				</div>
 
 				<div class="form-control">
-					<label class="label"> <span class="label-text">검색</span>
-					</label> <input type="submit" class="btn btn-sm btn-primary" value="검색" />
+					<label class="label">
+						<span class="label-text">검색</span>
+					</label>
+					<input type="submit" class="btn btn-sm btn-primary" value="검색" />
 				</div>
 
 
@@ -62,14 +71,29 @@
 			</c:if>
 			<c:forEach items="${articles}" var="article">
 				<div>
-					ID : ${article.id}<br> 
-					REG DATE : ${article.regDate}<br> 
-					UPDATE DATE : ${article.updateDate}<br> 
-					TITLE : ${article.title}<br>
+					ID : ${article.id}
+					<br>
+					REG DATE : ${article.regDate}
+					<br>
+					UPDATE DATE : ${article.updateDate}
+					<br>
+					TITLE : ${article.title}
+					<br>
 				</div>
 				<hr />
 			</c:forEach>
 		</div>
+
+		<div class="pages">
+			<c:forEach var="i" begin="1" end="${totalPage}">
+				<c:set var="url" value="?boardId=${board.id}" />
+				<c:set var="url" value="${url}&searchKeywordType=${param.searchKeywordType}" />
+				<c:set var="url" value="${url}&searchKeyword=${param.searchKeyword}" />
+				<c:set var="url" value="${url}&page=${i}" />
+				<a class="text-lg ${page == i ? 'text-red-500' : ''}" href="${url}">${i}</a>
+			</c:forEach>
+		</div>
+
 	</div>
 </div>
 
