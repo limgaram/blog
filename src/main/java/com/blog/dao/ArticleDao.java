@@ -24,7 +24,7 @@ public interface ArticleDao {
 	void addArticle(Map<String, Object> param);
 
 	int getArticlesTotalCount(@Param("boardId") int boardId,
-			@Param("searchKeywordTypeCode") String searchKeywordTypeCode, @Param("searchKeyword") String searchKeyword);
+			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword);
 
 	List<Article> getForPrintArticles(@Param("boardId") int boardId,
 			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword,
