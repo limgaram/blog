@@ -88,7 +88,7 @@ public class MpaUsrArticleController extends BaseController {
 
         ResultData writeArticleRd = articleService.writeArticle(boardId, memberId, title, body);
 
-        if ( writeArticleRd.isFail() ) {
+        if (writeArticleRd.isFail()) {
             return msgAndBack(req, writeArticleRd.getMsg());
         }
 
@@ -152,4 +152,21 @@ public class MpaUsrArticleController extends BaseController {
         return articleService.modifyArticleById(id, title, body);
     }
 
+    @RequestMapping("/mpaUsr/article/detail")
+    public String showDetail(HttpServletRequest req, int id) {
+        Article article = articleService.getArticleById(id);
+
+        if (article == null) {
+            return msgAndBack(req, id + "번 게시물이 존재하지 않습니다.");
+        }
+
+        Board board = boardService.getBoardById(article.getBoardId());
+
+        req.setAttribute("article", article);
+        req.setAttribute("board", board);
+
+        return "mpaUsr/article/detail";
+    }
+
 }
+

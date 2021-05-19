@@ -9,9 +9,9 @@ public class BaseController {
 		return "common/redirect";
 	}
 
-	protected String msgAndReplace(HttpServletRequest req, String msg, String redirectUrl) {
-		req.setAttribute("redirectUrl", redirectUrl);
+	protected String msgAndReplace(HttpServletRequest req, String msg, String replaceUrl) {
 		req.setAttribute("msg", msg);
+		req.setAttribute("replaceUrl", replaceUrl);
 		return "common/redirect";
 	}
 }
