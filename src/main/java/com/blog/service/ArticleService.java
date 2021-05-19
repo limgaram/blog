@@ -1,17 +1,16 @@
 package com.blog.service;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.blog.dao.ArticleDao;
 import com.blog.dto.Article;
 import com.blog.dto.Board;
 import com.blog.dto.Member;
 import com.blog.dto.ResultData;
 import com.blog.util.Util;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ArticleService {
@@ -19,10 +18,7 @@ public class ArticleService {
 	@Autowired
 	private ArticleDao articleDao;
 
-	public ResultData writeArticle(String title, String body) {
-		// test data
-		int boardId = 3;
-		int memberId = 3;
+	public ResultData writeArticle(int boardId, int memberId, String title, String body) {
 		articleDao.writeArticle(boardId, memberId, title, body);
 		int id = articleDao.getLastInsertId();
 

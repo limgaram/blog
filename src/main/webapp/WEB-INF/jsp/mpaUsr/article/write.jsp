@@ -6,7 +6,7 @@
 <%@ include file="../common/head.jspf"%>
 <script>
 let ArticleWrite__submitFormDone = false;
-function ArticleWrite__submitFormDone(form){
+function ArticleWrite__submitForm(form){
     if(ArticleWrite__submitFormDone){
         return;
     }
@@ -36,7 +36,8 @@ function ArticleWrite__submitFormDone(form){
 
 <div class="section section-article-list">
 	<div class="contatiner mx-auto">
-        <form method="POST" action="doWrite" onsubmit="ArticleWrite__submitFormDone(this); return false;">
+        <form method="POST" action="doWrite" onsubmit="ArticleWrite__submitForm(this); return false;">
+            <input type="hidden" name="boardId" value="${board.id}" />
             <div class="form-control">
                 <label class="label">
                     제목
