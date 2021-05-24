@@ -12,6 +12,16 @@
 		AND A.delStatus = 0
 	</select>
 
+	<select id="getForPrintArticleById" resultType="Article">
+		SELECT A.*,
+		IFNULL(M.name, "Member_Not_Found") AS extra__writerName
+		FROM article AS A
+		LEFT JOIN member AS M
+		ON A.memberId = M.id
+		WHERE A.id = #{id}
+		AND A.delStatus = 0
+	</select>
+
 	<select id="getForPrintArticles" resultType="Article">
 		SELECT *
 		FROM article AS A

@@ -61,6 +61,22 @@ public class MpaUsrArticleController extends BaseController {
         return "mpaUsr/article/list";
     }
 
+    @RequestMapping("/mpaUsr/article/detail")
+    public String showDetail(HttpServletRequest req, int id) {
+        Article article = articleService.getForPrintArticleById(id);
+
+        if (article == null) {
+            return msgAndBack(req, id + "번 게시물이 존재하지 않습니다.");
+        }
+
+        Board board = boardService.getBoardById(article.getBoardId());
+
+        req.setAttribute("article", article);
+        req.setAttribute("board", board);
+
+        return "mpaUsr/article/detail";
+    }
+
     @RequestMapping("/mpaUsr/article/write")
     public String showWrite(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId) {
         Board board = boardService.getBoardById(boardId);
@@ -152,21 +168,6 @@ public class MpaUsrArticleController extends BaseController {
         return articleService.modifyArticleById(id, title, body);
     }
 
-    @RequestMapping("/mpaUsr/article/detail")
-    public String showDetail(HttpServletRequest req, int id) {
-        Article article = articleService.getArticleById(id);
-
-        if (article == null) {
-            return msgAndBack(req, id + "번 게시물이 존재하지 않습니다.");
-        }
-
-        Board board = boardService.getBoardById(article.getBoardId());
-
-        req.setAttribute("article", article);
-        req.setAttribute("board", board);
-
-        return "mpaUsr/article/detail";
-    }
 
 }
 

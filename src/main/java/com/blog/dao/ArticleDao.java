@@ -1,12 +1,11 @@
 package com.blog.dao;
 
-import java.util.List;
-import java.util.Map;
-
+import com.blog.dto.Article;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.blog.dto.Article;
+import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ArticleDao {
@@ -29,4 +28,6 @@ public interface ArticleDao {
 	List<Article> getForPrintArticles(@Param("boardId") int boardId,
 			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword,
 			@Param("limitFrom") int limitFrom, @Param("limitTake") int limitTake);
+
+    Article getForPrintArticleById(@Param("id") int id);
 }
