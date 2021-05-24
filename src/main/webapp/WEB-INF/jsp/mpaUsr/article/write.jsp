@@ -22,12 +22,12 @@ function ArticleWrite__submitForm(form){
 
     form.body.value = form.body.value.trim();
 
-        if(form.body.value.length == 0){
-            alert('내용을 입력해주세요.');
-            form.body.focus();
+    if(form.body.value.length == 0){
+        alert('내용을 입력해주세요.');
+        form.body.focus();
 
-            return;
-        }
+        return;
+    }
 
     form.submit();
     ArticleWrite__submitFormDone = true;
