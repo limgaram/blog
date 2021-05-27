@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="pageTitle" value="<span><i class='far fa-clipboard'></i></span> <span>MEMBER JOIN</span>" />
+<c:set var="pageTitle" value="<span><i class='fas fa-user-plus'></i></span> <span>MEMBER JOIN</span>" />
 
 <%@ include file="../common/head.jspf"%>
 <script>
