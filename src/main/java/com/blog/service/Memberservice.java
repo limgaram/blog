@@ -1,15 +1,14 @@
 package com.blog.service;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.blog.dao.MemberDao;
 import com.blog.dto.Member;
 import com.blog.dto.ResultData;
 import com.blog.util.Util;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class Memberservice {
@@ -51,6 +50,13 @@ public class Memberservice {
 
 		return new ResultData("S-1", String.format("%s님 환영합니다.", param.get("nickname")));
 
+	}
+
+	public ResultData join(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+		memberDao.join(loginId, loginPw, name, nickname, cellphoneNo, email);
+		int id = memberDao.getLastInsertId();
+
+		return new ResultData("S-1", "회원가입이 완료되었습니다.", "id", id);
 	}
 
 	public List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int page, int itemsInAPage,
